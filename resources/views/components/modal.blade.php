@@ -1,6 +1,6 @@
 <div class="modal fade " tabindex="-1" role="dialog" id="myModal" aria-modal="true">
     <div class="modal-dialog">
-        <form class="modal-content" action="{{ route('pdf-extraction.extract') }}" method="POST" enctype="multipart/form-data">
+        <form class="modal-content" action="{{ route('pdf-extraction.extract') }}" method="POST" enctype="multipart/form-data" onsubmit="return validateFileSize()">
             @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

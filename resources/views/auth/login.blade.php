@@ -31,27 +31,27 @@
         <div class="container">
             <form action="{{ route('login') }}" class="form-login" method="post">
                 @csrf
-                <h2 class="form-login-heading">COnnecter vous ici</h2>
+                <h2 class="form-login-heading">Connectez-vous ici</h2>
                 <div class="login-wrap">
                     <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" autofocus>
-                    @error("email")
-                    {{$message}}
+                    @error('email')
+                    <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <br>
                     <input type="password" name="password" class="form-control" value="{{ old('password') }}" placeholder="Password">
-                    @error("password")
-                    {{$message}}
+                    @error('password')
+                    <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
 
                     <button class="btn btn-theme btn-block" type="submit">
                         <i class="fa fa-lock"></i>
                         Connecter
                     </button>
-
                 </div>
             </form>
         </div>
     </div>
+
 </body>
 
 </html>

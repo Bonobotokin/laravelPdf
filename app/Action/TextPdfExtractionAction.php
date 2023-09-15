@@ -23,17 +23,18 @@ class TextPdfExtractionAction
 
                     $user = User::first();
 
-                    // Injectez la classe de notification au lieu de l'instancier ici
+                    //  Envoye email de notification
                     $user->notify(new TextExtractionSuccessNotification($pdfExtractionTraitement));
 
                     return [
-                        'data' => true,
+                        'data' => 1,
                         'message' => self::SUCCESS_MESSAGE, 41.0
                     ];
                 }
 
                 return [
-                    'data' => false,
+                    'data' => null,
+                    'message' => self::ERROR_MESSAGE,
                 ];
             });
 

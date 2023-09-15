@@ -5,27 +5,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PdfExtractionController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::view('/', 'auth.login')->name('root');
 
-
-
-Route::get('/', function () {
-    return view('auth.login');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
 });
-Route::get('/login', [AuthController::class, 'loginStart'])->name('login');
-Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::post('/login', [AuthController::class, 'loginStart']);
-Route::get('/acceuil', [HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::get('/acceuil', [HomeController::class, 'index'])->name('home');
 
-// Route::get('/pdf-extraction', 'PdfExtractionController@index')->name('pdf-extraction.index');
-Route::post('/pdf-extraction', [PdfExtractionController::class, 'extract'])->name('pdf-extraction.extract');
+    Route::post('/pdf-extraction', [PdfExtractionController::class, 'extract'])->name('pdf-extraction.extract');
+});

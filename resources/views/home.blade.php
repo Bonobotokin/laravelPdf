@@ -61,3 +61,20 @@
     </x-slot>
 </x-modal>
 @endsection
+
+@section('script')
+<!-- script pour gere la soummission de formulaire -->
+<script>
+    function validateFileSize() {
+        var fileInput = document.querySelector('input[type="file"]');
+        var maxFileSize = 8 * 1024 * 1024; // 8 Mo (en octets)
+
+        if (fileInput.files[0] && fileInput.files[0].size > maxFileSize) {
+            alert('Le fichier est trop volumineux. Veuillez choisir un fichier plus petit.');
+            return false; // Empêche la soumission du formulaire
+        }
+
+        return true; // Autorise la soumission du formulaire
+    }
+</script>
+@endsection

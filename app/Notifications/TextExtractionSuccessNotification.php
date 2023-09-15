@@ -20,7 +20,6 @@ class TextExtractionSuccessNotification extends Notification implements ShouldQu
     public function __construct(PdfExtraction $pdfExtraction)
     {
         $this->pdfExtraction = $pdfExtraction;
-        // dd($this->pdfExtraction);
     }
 
     /**

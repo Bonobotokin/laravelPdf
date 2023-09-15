@@ -10,35 +10,44 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     /**
-     * Undocumented function
+     * Affiche le formulaire de connexion.
      *
      * @return View
      */
-    public function login(): View
+    public function showLoginForm(): View
     {
         return view('auth.login');
     }
 
+    /**
+     * Gère la déconnexion de l'utilisateur.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout()
     {
         Auth::logout();
-        return to_route('login');
+        return redirect()->route('login');
     }
 
-
-    public function loginStart(LoginRequest $request)
+    /**
+     * Gère le processus de connexion de l'utilisateur.
+     *
+     * @param  LoginRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function login(LoginRequest $request)
     {
+        $credentials = $request->validated();
 
-        $action = $request->validated();
-
-        if (Auth::attempt($action)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route('home'))->with('success', 'Vous êtes connecté avec succès !');
         }
 
-        return to_route('auth.login')->withErrors([
-            'email' => 'Email Invalide',
-        ])->onlyInput('email');
+        return redirect()->route('login')->withErrors([
+            'email' => 'Les informations d\'identification fournies sont incorrectes. Veuillez vérifier votre email et votre mot de passe.',
+        ])->withInput($request->only('email'));
     }
 }
