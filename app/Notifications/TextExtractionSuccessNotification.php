@@ -2,10 +2,11 @@
 
 namespace App\Notifications;
 
+use App\Models\PdfExtraction;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class TextExtractionSuccessNotification extends Notification
 {
@@ -14,9 +15,12 @@ class TextExtractionSuccessNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public $pdfExtraction;
+
+    public function __construct(PdfExtraction $pdfExtraction)
     {
-        //
+        $this->pdfExtraction = $pdfExtraction;
+        // dd($this->pdfExtraction);
     }
 
     /**

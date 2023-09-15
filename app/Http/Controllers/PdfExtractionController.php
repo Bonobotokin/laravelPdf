@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use App\Events\PdfExtractionRegistered;
 use App\Http\Requests\PdfExtractionRequest;
+use App\Models\User;
+use App\Notifications\TextExtractionSuccessNotification;
+use Illuminate\Notifications\Notification;
 
 class PdfExtractionController extends Controller
 {
@@ -40,8 +43,12 @@ class PdfExtractionController extends Controller
             ]);
 
             // Déclenchez un événement
-            event(new PDFExtractionEvent($pdfExtraction));            // Créez une instance de PdfExtraction pour l'événement
+            // event(new PDFExtractionEvent($pdfExtraction));            // Créez une instance de PdfExtraction pour l'événement
 
+            $user = User::first();
+            // $userEmail = auth()->user()->email;
+            // // Notification::route('mail', $userEmail)->notify(new TextExtractionSuccessNotification($pdfExtraction));
+            $user->notify(new TextExtractionSuccessNotification($pdfExtraction));
 
             // Déclenchez l'événement PdfExtractionRegistered
 
