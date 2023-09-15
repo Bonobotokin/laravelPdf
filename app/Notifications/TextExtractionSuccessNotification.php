@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class TextExtractionSuccessNotification extends Notification
+class TextExtractionSuccessNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -30,19 +30,19 @@ class TextExtractionSuccessNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database', 'mail'];
     }
 
     /**
      * Get the mail representation of the notification.
      */
     public function toMail(object $notifiable): MailMessage
-    { {
-            return (new MailMessage)
-                ->line('L\'extraction de texte à partir du PDF a été effectuée avec succès.')
-                ->action('Voir le résultat', url('/'))
-                ->line('Merci d\'utiliser notre service !');
-        }
+    {
+        sleep(2);
+        return (new MailMessage)
+            ->line('L\'extraction de texte à partir du PDF a été effectuée avec succès.')
+            ->action('Voir le résultat', url('/'))
+            ->line('Merci d\'utiliser notre service !');
     }
 
     /**
