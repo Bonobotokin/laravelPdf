@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\PdfExtraction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -14,12 +15,16 @@ class PdfExtractionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $pdfExtraction;
+
     /**
      * Create a new message instance.
+     *
+     * @param PDFExtraction $pdfExtraction
      */
-    public function __construct(public array $data)
+    public function __construct(PdfExtraction $pdfExtraction)
     {
-        //
+        $this->pdfExtraction = $pdfExtraction;
     }
 
     /**
@@ -28,8 +33,8 @@ class PdfExtractionMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            to: 'admin@test.mg',
-            subject: 'Pdf Extraction Mail',
+            to: '',
+            subject: 'Pdf Extraction',
         );
     }
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('titre');
-            $table->json('text'); // Define the 'text' column as JSON
+            $table->json('text')->nullable(); // Define the 'text' column as JSON
             $table->timestamps();
 
             // Define foreign key constraint for 'user_id'

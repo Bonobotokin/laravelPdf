@@ -13,4 +13,8 @@ class PdfExtraction extends Model
         'titre',
         'text'
     ];
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
 }
