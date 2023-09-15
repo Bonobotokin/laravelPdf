@@ -21,7 +21,8 @@ use App\Http\Controllers\PdfExtractionController;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/login', [AuthController::class, 'loginStart'])->name('auth.login');
+Route::get('/login', [AuthController::class, 'loginStart'])->name('login');
+Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::post('/login', [AuthController::class, 'loginStart']);
 Route::get('/acceuil', [HomeController::class, 'index'])->name('home');

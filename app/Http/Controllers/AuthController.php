@@ -19,6 +19,12 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        return to_route('login');
+    }
+
 
     public function loginStart(LoginRequest $request)
     {

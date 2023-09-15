@@ -29,7 +29,7 @@
       *********************************************************************************************************************************************************** -->
     <div id="login-page">
         <div class="container">
-            <form action="{{ route('auth.login') }}" class="form-login" method="post">
+            <form action="{{ route('login') }}" class="form-login" method="post">
                 @csrf
                 <h2 class="form-login-heading">COnnecter vous ici</h2>
                 <div class="login-wrap">
